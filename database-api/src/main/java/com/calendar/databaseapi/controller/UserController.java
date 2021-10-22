@@ -36,14 +36,12 @@ public class UserController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody User user, @PathVariable Integer id) {
-        try {
-            User existUser = userService.getUser(id);
-            user.setId(id);            
-            userService.saveUser(user);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    	if(userService.userExists(id)) {
+    	   	user.setId(id);            
+       		userService.saveUser(user);
+       		return new ResponseEntity<>(HttpStatus.OK);
+    	}
+    	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
