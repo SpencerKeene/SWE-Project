@@ -13,15 +13,18 @@ public class User {
     private int id;
     private String firstName;
     private String lastName;
+    private String email;
+    private String password;
     
-    
-    public User() {
-    }
+   public User() {
+   }
 
-    public User(int id, String firstName, String lastName) {
+    public User(int id, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.password = password;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +32,6 @@ public class User {
         return id;
     }
 //other setters and getters
-
 	public String getFirstName() {
 		return firstName;
 	}
@@ -45,7 +47,23 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
