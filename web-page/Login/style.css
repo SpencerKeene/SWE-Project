@@ -14,11 +14,15 @@ body {
   width: 200px;
   height: 70px;
   border-radius: 15px;
+  margin: 10px;;
   background-color: red;
   border: none;
 }
-.buttonSyle:hover{/*fix the hover effect and make it work*/
- box-shadow: 10px 10px 5px rgba(c9, 32, 00, 0.5);
+.buttonStyle:hover{/*fix the hover effect and make it work*/
+ box-shadow: 10px 10px 5px rgba(green, 32, 00, 0.5);
+}
+.buttonText{
+  color: white;
 }
 .form-signin {
   max-width: 330px;
@@ -49,8 +53,18 @@ body {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-signin input[type="password"] {
+.form-signin input[type="password"] {/*these two are for the input box*/
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+input[type="password"]{/*these three should centre
+                       as well as 30%for full screen width*/
+  width: 70%;
+}
+input[type="email"]{
+  width: 70%;
+}
+input[type="text"]{
+width: 70%;
 }
