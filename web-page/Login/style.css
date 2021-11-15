@@ -1,0 +1,56 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+.backgroundImage{/*we will need to make different media screens
+                  in order to maintain the image covering 
+                  the full length of the screen and not
+                  have it break into side by side images*/
+  background-size: 100%;/*browser at full screen*/
+  background-image: url("/web-page/images/Calendar-background-image.png");
+}
+.buttonStyle{
+  width: 200px;
+  height: 70px;
+  border-radius: 15px;
+  background-color: red;
+  border: none;
+}
+.buttonSyle:hover{/*fix the hover effect and make it work*/
+ box-shadow: 10px 10px 5px rgba(c9, 32, 00, 0.5);
+}
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
