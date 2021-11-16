@@ -1,20 +1,31 @@
 package com.calendar.databaseapi.model;
 
-import javax.persistence.Entity;
+
+/*import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.Table;
+*/
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity //save to a table
 @Table(name = "users") // name of the table
 public class User {
+	
     private int id;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
+    
+    @ManyToMany
+    @JoinTable(
+    	name = "event-user",
+    	joinColumns = @JoinColumn(name = "user_id"),
+    	inverseJoinColumns = @JoinColumn(name = "event_id"))
+    Set<Event> assignedEvents;
     
    public User() {
    }
