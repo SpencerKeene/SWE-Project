@@ -1,0 +1,22 @@
+/* Fix Bootstrap bug where row-cols-* does not work above row-cols-6 */
+.row-cols-7 > * {
+  flex: 0 0 auto;
+  width: 14.2857142857%;
+}
+
+.calendar {
+  margin-top: 50px;
+}
+
+.calendar-weekday {
+  text-align: center;
+  border: 1px;
+  border-color: black;
+}
+
+.calendar-cell {
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  height: 10vw;
+}
