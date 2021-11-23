@@ -13,11 +13,9 @@ body {
   padding-bottom: 40px;
   background-color: #eee;
 }
-.backgroundImage{/*we will need to make different media screens
-                  in order to maintain the image covering 
-                  the full length of the screen and not
-                  have it break into side by side images*/
-  background-size: 100%;/*browser at full screen*/
+.backgroundImage{
+  background-size: cover;
+  height: 710px;
   background-image: url("/web-page/images/Calendar-background-image.png");
 }
 .buttonStyle{
