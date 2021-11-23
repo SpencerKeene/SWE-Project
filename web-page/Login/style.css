@@ -1,3 +1,13 @@
+@media screen and (min-width: 601px){
+  .buttonStyle{
+    width: 200px;
+    height: 70px;
+    border-radius: 15px;
+    margin: 10px;
+    background-color: blue;
+    border: none;
+  }
+}
 body {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -24,10 +34,17 @@ body {
 .buttonText{
   color: white;
 }
+.form-login-heading{
+  margin-top: 40px;
+  color: white;
+}
 .form-signin {
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
+}
+.font-color{
+  color: white;
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
