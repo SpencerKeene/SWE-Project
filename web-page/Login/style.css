@@ -24,10 +24,6 @@ body {
 .buttonText{
   color: white;
 }
-.container-position{
-  position: relative;
-  margin-left: 25%;
-}
 .form-signin {
   max-width: 330px;
   padding: 15px;
@@ -64,11 +60,11 @@ body {
 }
 input[type="password"]{/*these three should centre
                        as well as 30%for full screen width*/
-  width: 50%;
+  width: 70%;
 }
 input[type="email"]{
-  width: 50%;
+  width: 70%;
 }
 input[type="text"]{
-width: 50%;
+width: 70%;
 }
