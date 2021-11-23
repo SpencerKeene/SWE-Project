@@ -13,8 +13,6 @@ import java.util.Set;
 @Entity //save to a table
 @Table(name = "users") // name of the table
 public class User {
-	
-    private int id;
     private String firstName;
     private String lastName;
     private String email;
@@ -30,18 +28,13 @@ public class User {
    public User() {
    }
 
-    public User(int id, String firstName, String lastName, String email, String password) {
-        this.id = id;
+    public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
-        return id;
-    }
+
 //other setters and getters
 	public String getFirstName() {
 		return firstName;
@@ -63,6 +56,7 @@ public class User {
 		this.email = email;
 	}
 	
+    @Id
 	public String getEmail() {
 		return email;
 	}
@@ -74,11 +68,5 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-    
-    
     
 }
