@@ -33,8 +33,6 @@ public class User {
    public User() {
    }
 
-    public User(int id, String firstName, String lastName, String email, String password) {
-        this.id = id;
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -61,7 +59,6 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	@Id
 	public String getEmail() {
 		return email;
