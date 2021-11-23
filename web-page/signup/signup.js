@@ -4,16 +4,14 @@ var lname = "";
 var email = "";
 var pw    = "";
 
-const signUpBtn = document.getElementById('signupForm');
+const signUpForm = document.getElementById('signupForm');
 
-signUpBtn.addEventListener('submit', (e) => {
+signUpForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     fname = document.getElementById('fname').value;
     lname = document.getElementById('lname').value;
     email = document.getElementById('inputEmail').value;
     pw    = document.getElementById('inputPassword').value;
-    alert(fname + ", " + lname + ", " + email + ", " + pw);
-    
-})
-
-const loginBtn = document.getElementById('loginForm'); 
-//add event listener
+    //add validation and API
+    //add a way to load to the next page if information is valid
+});
