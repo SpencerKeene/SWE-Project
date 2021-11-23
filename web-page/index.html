@@ -50,7 +50,13 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Settings</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" onclick="window.location.href='Login/signInOut.html';">Sign out</a></li>
+            <li>
+              <a
+                class="dropdown-item"
+                onclick="window.location.href='Login/signInOut.html';"
+                >Sign out</a
+              >
+            </li>
           </ul>
         </li>
       </ul>
@@ -113,6 +119,71 @@
       <div class="container calendar-container">
         <div class="row row-cols-7" id="calendar-grid">
           <!-- Calendar cells are dynamically loaded here in script.js -->
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="calendar-day-modal"
+      tabindex="-1"
+      aria-labelledby="calendar-day-modal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="calendar-day-modal-title">
+              <!-- Title is dynamically loaded in script.js/displayDayEvents
+                in the form: month day, year -->
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Events are dynamically loaded in script.js/displayDayEvents -->
+            <div class="modal-timeslot thick-border">12am</div>
+            <div class="modal-timeslot">1am</div>
+            <div class="modal-timeslot">2am</div>
+            <div class="modal-timeslot">3am</div>
+            <div class="modal-timeslot">4am</div>
+            <div class="modal-timeslot">5am</div>
+            <div class="modal-timeslot">6am</div>
+            <div class="modal-timeslot">7am</div>
+            <div class="modal-timeslot">8am</div>
+            <div class="modal-timeslot">9am</div>
+            <div class="modal-timeslot">10am</div>
+            <div class="modal-timeslot">11am</div>
+            <div class="modal-timeslot thick-border">12pm</div>
+            <div class="modal-timeslot">1pm</div>
+            <div class="modal-timeslot">2pm</div>
+            <div class="modal-timeslot">3pm</div>
+            <div class="modal-timeslot">4pm</div>
+            <div class="modal-timeslot">5pm</div>
+            <div class="modal-timeslot">6pm</div>
+            <div class="modal-timeslot">7pm</div>
+            <div class="modal-timeslot">8pm</div>
+            <div class="modal-timeslot">9pm</div>
+            <div class="modal-timeslot">10pm</div>
+            <div class="modal-timeslot">11pm</div>
+            <div class="modal-timeslot thick-border" style="height: 20px">
+              12pm
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
         </div>
       </div>
     </div>

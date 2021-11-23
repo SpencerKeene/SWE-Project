@@ -67,3 +67,13 @@
 #today {
   background-color: rgb(181, 227, 255);
 }
+
+.modal-timeslot {
+  border-top: 1px dashed black;
+  height: 120px;
+}
+
+.modal-timeslot.thick-border {
+  border-top-style: solid;
+  border-width: 2px;
+}
