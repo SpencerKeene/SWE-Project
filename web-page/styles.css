@@ -1,3 +1,7 @@
+:root {
+  --calendar-lightGrey: rgb(240, 240, 240);
+}
+
 #page-header {
   padding-top: 10px;
   background-color: red;
@@ -5,6 +9,7 @@
 
 .nav-link {
   color: white;
+  font-size: large;
 }
 
 .nav-link:hover,
@@ -26,25 +31,37 @@
   text-align: center;
 }
 
-#calendar-month,
-#calendar-year {
-  display: inline;
-  padding: 2px;
-}
-
 .calendar-weekday {
   text-align: center;
 }
 
 .calendar-cell {
+  display: inline-flex;
+  align-items: top;
+  text-align: left;
   border-color: black;
   border-style: solid;
   border-width: 1px;
+  background-color: var(--calendar-lightGrey);
   min-height: calc(100vh / 7);
 }
 
+.calendar-cell:hover {
+  border-color: red;
+  border-width: 3px;
+}
+
+#calendar-title-middle-btn {
+  width: 360px;
+  background-color: var(--calendar-lightGrey);
+}
+
+#calendar-title-middle-btn:hover {
+  background-color: var(--bs-gray);
+}
+
 .calendar-cell.padding-cell {
-  background-color: rgb(220, 220, 220);
+  background-color: rgb(200, 200, 200);
 }
 
 #today {

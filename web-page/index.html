@@ -58,8 +58,46 @@
 
     <div id="calendar">
       <header id="calendar-header">
-        <h1 id="calendar-month"></h1>
-        <h1 id="calendar-year"></h1>
+        <div
+          class="btn-group"
+          style="margin-top: 5px; margin-bottom: 5px"
+          id="calendar-title-btn-group"
+          role="group"
+          aria-label="Basic example"
+        >
+          <button
+            type="button"
+            id="calendar-title-left-btn"
+            class="btn btn-secondary"
+          >
+            <!-- onlick loaded in script.js -->
+            <
+          </button>
+          <button
+            type="button"
+            id="calendar-title-middle-btn"
+            class="btn btn-outline-secondary"
+          >
+            <!-- onlick loaded in script.js -->
+            <h1
+              style="display: inline; padding-right: 5px"
+              id="calendar-title-month"
+            ></h1>
+            <h1
+              style="display: inline; padding-left: 5px"
+              id="calendar-title-year"
+            ></h1>
+          </button>
+          <button
+            type="button"
+            id="calendar-title-right-btn"
+            class="btn btn-secondary"
+          >
+            <!-- onlick loaded in script.js -->
+            >
+          </button>
+        </div>
+
         <div class="container calendar-container">
           <div class="row row-cols-7" id="calendar-weekdays">
             <h5 class="col calendar-weekday">Mon</h5>
