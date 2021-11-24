@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -30,6 +31,21 @@ public class UserController {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
     }
+    
+    @PostMapping("/users/login/")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> json) {
+    	String email = json.get("email");
+    	String password = json.get("password");
+    	
+    	try {
+            User user = userService.getUser(email);
+            if (user.getPassword().equals(password)) return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            else return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
     @PostMapping("/")
     public void add(@RequestBody User user) {
         userService.saveUser(user);
