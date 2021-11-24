@@ -19,14 +19,30 @@ let calendarYear = todaysDate.getFullYear();
 let calendarMonth = todaysDate.getMonth();
 
 // define functions
+function displayDayEvents(event) {
+  const cell = event.target;
+  const day = cell.getAttribute("day");
+  const month = cell.getAttribute("month");
+  const year = cell.getAttribute("year");
+  const isToday = cell.getAttribute("id") === "today";
+
+  document.getElementById("calendar-day-modal-title").innerText = `${
+    months[month]
+  } ${day}, ${year} ${isToday ? "(Today)" : ""}`;
+
+  // TODO - load events for the day
+}
+
 function setupCalendar() {
   // define inner functions
   function addEventOnDay() {}
 
-  function addCell(day) {
+  function addCell() {
     const cell = document.createElement("button");
     cell.classList.add("col", "calendar-cell");
-    cell.innerText = day;
+    cell.onclick = displayDayEvents;
+    cell.setAttribute("data-bs-toggle", "modal");
+    cell.setAttribute("data-bs-target", "#calendar-day-modal");
     calendarGrid.appendChild(cell);
     return cell;
   }
@@ -54,27 +70,53 @@ function setupCalendar() {
     i <= paddingDaysBefore + daysInMonth + paddingDaysAfter;
     i++
   ) {
-    let isPaddingDay = false;
-    let day = i - paddingDaysBefore;
+    const cell = addCell();
+
     // if cell is a padding day before
     if (i <= paddingDaysBefore) {
-      day += daysInPrevMonth;
-      isPaddingDay = true;
+      const day = i - paddingDaysBefore + daysInPrevMonth;
+
+      cell.setAttribute("day", day);
+      cell.setAttribute("month", calendarMonth === 0 ? 11 : calendarMonth - 1);
+      cell.setAttribute(
+        "year",
+        calendarMonth === 0 ? calendarYear - 1 : calendarYear
+      );
+
+      cell.innerText = day;
+      cell.classList.add("padding-cell");
     }
     // if cell is a padding day after
     else if (i > paddingDaysBefore + daysInMonth) {
-      day -= daysInMonth;
-      isPaddingDay = true;
-    }
+      const day = i - paddingDaysBefore - daysInMonth;
 
-    cell = addCell(day);
-    if (isPaddingDay) cell.classList.add("padding-cell");
-    if (isThisMonth && !isPaddingDay && day === todaysDate.getDate())
-      cell.id = "today";
+      cell.setAttribute("day", day);
+      cell.setAttribute("month", calendarMonth === 11 ? 0 : calendarMonth + 1);
+      cell.setAttribute(
+        "year",
+        calendarMonth === 11 ? calendarYear + 1 : calendarYear
+      );
+
+      cell.innerText = day;
+      cell.classList.add("padding-cell");
+    }
+    // is not a padding day
+    else {
+      const day = i - paddingDaysBefore;
+
+      cell.innerText = day;
+      cell.setAttribute("day", day);
+      cell.setAttribute("month", calendarMonth);
+      cell.setAttribute("year", calendarYear);
+
+      if (isThisMonth && day === todaysDate.getDate()) cell.id = "today";
+    }
   }
 }
 
-function loadEvents() {}
+function loadEvents() {
+  // TODO - load events for the month
+}
 
 function loadCalendar() {
   setupCalendar();
