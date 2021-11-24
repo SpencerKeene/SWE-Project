@@ -44,7 +44,7 @@ public class UserController {
     	
     }
     
-    @PostMapping("/users/login/")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> json) {
     	String email = json.get("email");
     	String password = json.get("password");
