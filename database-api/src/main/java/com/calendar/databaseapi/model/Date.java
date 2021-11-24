@@ -30,10 +30,10 @@ public class Date {
 	}
 
 	public boolean isValid() {
-		if(month > 12 || month < 0) return false;
-		else if(day > 31 || day < 0) return false;
-		else if(hour > 24 || hour < 0) return false;
-		else if(minute > 60 || minute < 0) return false;
+		if(month > 12 || month <= 0) return false;
+		else if(day > 31 || day <= 0) return false;
+		else if(hour >= 24 || hour < 0) return false;
+		else if(minute >= 60 || minute < 0) return false;
 		return true;
 	}
 	
