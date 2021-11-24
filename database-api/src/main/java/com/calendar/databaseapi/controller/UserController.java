@@ -1,7 +1,6 @@
 package com.calendar.databaseapi.controller;
 
 import com.calendar.databaseapi.model.Event;
-import com.calendar.databaseapi.model.EventHelper;
 import com.calendar.databaseapi.model.User;
 import com.calendar.databaseapi.service.EventService;
 import com.calendar.databaseapi.service.UserService;
@@ -11,11 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/users")
@@ -62,11 +59,12 @@ public class UserController {
     }
     
     // TODO - conflict check is not working properly
-    @PostMapping("/events")
+	@PostMapping("/events")
     public ResponseEntity<?> assignEvent(@RequestBody Map<String, Object> json) {
     	String email = (String)json.get("email");
-    	Map<String, Object> eventComponents = (Map<String, Object>)json.get("event");
-    	Event event;
+    	@SuppressWarnings("unchecked")
+		Map<String, Object> eventComponents = (Map<String, Object>)json.get("event");
+    	Event event = null;
     	try {
     		Integer eventId = (Integer)eventComponents.get("id");
     		if (eventId == null) throw new NoSuchElementException();

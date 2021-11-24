@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.calendar.databaseapi.model.Event;
 import com.calendar.databaseapi.model.User;
 import com.calendar.databaseapi.repository.UserRepository;
 
