@@ -1,5 +1,6 @@
 package com.calendar.databaseapi.controller;
 
+import com.calendar.databaseapi.model.Event;
 import com.calendar.databaseapi.model.User;
 import com.calendar.databaseapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -30,6 +32,16 @@ public class UserController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
+    }
+    @GetMapping("/{email}")
+    public ResponseEntity<ArrayList<Event>> events(@PathVariable String email){
+    	try{
+    		User user = userService.getUser(email);
+    		return new ResponseEntity<ArrayList<Event>>(user.getEvents(), HttpStatus.OK);
+    	} catch (NoSuchElementException e) {
+            return new ResponseEntity<ArrayList<Event>>(HttpStatus.NOT_FOUND);
+        }
+    	
     }
     
     @PostMapping("/users/login/")
