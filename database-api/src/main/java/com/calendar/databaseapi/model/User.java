@@ -9,6 +9,7 @@ import javax.persistence.Table;
 */
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 @Entity //save to a table
@@ -44,6 +45,14 @@ public class User {
     }
     
 //other setters and getters
+    public ArrayList<Event> getEvents() {
+    	ArrayList<Event> events = new ArrayList<Event>();
+    	for(Event event : assignedEvents) {
+			events.add(event);
+		}
+    	return events;
+    }
+    
 	public String getFirstName() {
 		return firstName;
 	}

@@ -26,7 +26,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(int id, String eventName, int day, int month, int year, int startHour, int startMinute, int endHour, int endMinute) { //end date
+    public Event(int id, String eventName, int day, int month, int year, int startHour, int startMinute, int endHour, int endMinute) {
     	this.id = id;
         this.eventName = eventName;
         this.startDate = new Date(year, month, day, startHour, startMinute);
@@ -75,8 +75,6 @@ public class Event {
 		this.id = id;
 	}
 
-	
-	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
