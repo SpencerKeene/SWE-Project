@@ -12,7 +12,7 @@ import javax.persistence.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Iterator;
-import java.util.Set;
+import java.util.HashSet;
 
 @Entity //save to a table
 @Table(name = "users") // name of the table
@@ -27,7 +27,7 @@ public class User {
     	name = "event-user",
     	joinColumns = @JoinColumn(name = "user_id"),
     	inverseJoinColumns = @JoinColumn(name = "event_id"))
-    Set<Event> assignedEvents;
+    HashSet<Event> assignedEvents;
     
    public User() {
    }
@@ -37,6 +37,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        assignedEvents = new HashSet<>();
     }
     
     
