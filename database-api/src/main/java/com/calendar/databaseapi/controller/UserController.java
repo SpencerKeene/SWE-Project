@@ -21,10 +21,10 @@ public class UserController {
         return userService.listAllUser();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> get(@PathVariable String id) {
+    @GetMapping("/{email}")
+    public ResponseEntity<User> get(@PathVariable String email) {
         try {
-            User user = userService.getUser(id);
+            User user = userService.getUser(email);
             return new ResponseEntity<User>(user, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
@@ -34,18 +34,18 @@ public class UserController {
     public void add(@RequestBody User user) {
         userService.saveUser(user);
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody User user, @PathVariable String id) {
-    	if(userService.userExists(id)) {
-    	   	user.setEmail(id);            
+    @PutMapping("/{email}")
+    public ResponseEntity<?> update(@RequestBody User user, @PathVariable String email) {
+    	if(userService.userExists(email)) {
+    	   	user.setEmail(email);            
        		userService.saveUser(user);
        		return new ResponseEntity<>(HttpStatus.OK);
     	}
     	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) {
+    @DeleteMapping("/{email}")
+    public void delete(@PathVariable String email) {
 
-        userService.deleteUser(id);
+        userService.deleteUser(email);
     }
 }
