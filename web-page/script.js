@@ -1,3 +1,6 @@
+// get local storage
+const user = window.localStorage.getItem("user");
+
 // define variables
 const todaysDate = new Date();
 const calendarGrid = document.getElementById("calendar-grid");
