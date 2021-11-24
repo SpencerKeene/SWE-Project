@@ -9,7 +9,6 @@ import javax.persistence.Table;
 */
 import javax.persistence.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -54,7 +53,6 @@ public class User {
     public ArrayList<String> freeTime(){
     	Event[] sortArray = new Event[assignedEvents.size()];
     	Iterator<Event> itr = assignedEvents.iterator();
-    	Event event;
     	for(int i = 0; i < assignedEvents.size(); i++) {
     		sortArray[i] = itr.next();
     	}

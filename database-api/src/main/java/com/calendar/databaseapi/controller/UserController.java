@@ -44,6 +44,16 @@ public class UserController {
     	
     }
     
+    @GetMapping("/{email}")
+    public ResponseEntity<ArrayList<String>> freeTime(@PathVariable String email){
+    	try {
+    		User user = userService.getUser(email);
+    		return new ResponseEntity<ArrayList<String>>(user.freeTime(), HttpStatus.OK);
+    	} catch (NoSuchElementException e) {
+            return new ResponseEntity<ArrayList<String>>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
     @PostMapping("/{email}/assign-event")
     public ResponseEntity<?> assignEvent(@PathVariable String email, @RequestBody Event event) {
     	if (!event.isValid()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
