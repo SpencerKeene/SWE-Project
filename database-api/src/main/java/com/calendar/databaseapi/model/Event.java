@@ -1,6 +1,7 @@
 package com.calendar.databaseapi.model;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /*
 import javax.persistence.Entity;
@@ -11,73 +12,89 @@ import javax.persistence.Table;
 */
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity //save to a table
 @Table(name = "events") // name of the table
 public class Event {
 	
     private int id;
-    private String eventName;
-    private Date startDate;
-    private Date endDate;
-    
-    @ManyToMany(mappedBy = "assignedEvents")
-    private HashSet<User> users;
+    private String name;
+    private String startDate;
+    private String endDate;
+    private Set<User> users = new HashSet<>();
     
     public Event() {
     }
 
-    public Event(int id, String eventName, int day, int month, int year, int startHour, int startMinute, int endHour, int endMinute) {
+    public Event(Integer id, String name, String startDate, String endDate) {
     	this.id = id;
-        this.eventName = eventName;
-        this.startDate = new Date(year, month, day, startHour, startMinute);
-        this.endDate = new Date(year, month, day, endHour, endMinute);
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
     
-    public boolean isValid() {
-		return startDate.isValid() && endDate.isValid();
-	}
+    public void addParticipant(User user) {
+    	users.add(user);
+    }
     
-    public boolean isConflict(Event event) {
-    	Date startDate2 = event.getStartDate();
-    	Date endDate2 = event.getEndDate();
-    	
-    	if(endDate.isBefore(startDate2)) return false;
-    	else if(startDate.isAfter(endDate2)) return false;
-    	else return true;
+    public boolean hasConflict(Event event) {
+	  	Date startDate1 = new Date(this.getStartDate());
+	  	Date endDate1 = new Date(this.getEndDate());
+	  	Date startDate2 = new Date(event.getStartDate());
+	  	Date endDate2 = new Date(event.getEndDate());
+	  	
+	  	if(endDate1.isBefore(startDate2)) return false;
+	  	else if(startDate1.isAfter(endDate2)) return false;
+	  	else return true;
+    }
+    
+    public boolean valid() {
+    	return (new Date(getStartDate())).isValid() && (new Date(getEndDate())).isValid();
     }
     
     //getters and setters
-    public String getEventName() {
-		return eventName;
+    public String getName() {
+		return name;
 	}
 
-	public void setEventName(String eventName) {
-		this.eventName = eventName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date date) {
-		this.startDate = date;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 	
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
+
+	@JsonIgnore
+	@ManyToMany(mappedBy = "assignedEvents")
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
 }

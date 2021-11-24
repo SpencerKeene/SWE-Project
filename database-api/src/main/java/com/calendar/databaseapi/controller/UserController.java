@@ -1,7 +1,9 @@
 package com.calendar.databaseapi.controller;
 
 import com.calendar.databaseapi.model.Event;
+import com.calendar.databaseapi.model.EventHelper;
 import com.calendar.databaseapi.model.User;
+import com.calendar.databaseapi.service.EventService;
 import com.calendar.databaseapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,43 +11,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
     @Autowired
     UserService userService;
-
+    @Autowired
+    EventService eventService;
+    
     @GetMapping("")
     public List<User> list() {
         return userService.listAllUser();
     }
-
-    @GetMapping("/{email}")
-    public ResponseEntity<User> get(@PathVariable String email) {
-        try {
-            User user = userService.getUser(email);
-            return new ResponseEntity<User>(user, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-        }
-    }
-    @GetMapping("/{email}")
-    public ResponseEntity<ArrayList<Event>> events(@PathVariable String email){
-    	try{
-    		User user = userService.getUser(email);
-    		return new ResponseEntity<ArrayList<Event>>(user.getEvents(), HttpStatus.OK);
-    	} catch (NoSuchElementException e) {
-            return new ResponseEntity<ArrayList<Event>>(HttpStatus.NOT_FOUND);
-        }
-    	
-    }
     
-    @GetMapping("/{email}")
-    public ResponseEntity<ArrayList<String>> freeTime(@PathVariable String email){
+    // TODO - test
+    @GetMapping("/free-time")
+    public ResponseEntity<ArrayList<String>> freeTime(@RequestBody String email){
     	try {
     		User user = userService.getUser(email);
     		return new ResponseEntity<ArrayList<String>>(user.freeTime(), HttpStatus.OK);
@@ -54,52 +41,81 @@ public class UserController {
         }
     }
     
-    @PostMapping("/{email}/assign-event")
-    public ResponseEntity<?> assignEvent(@PathVariable String email, @RequestBody Event event) {
-    	if (!event.isValid()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	
-    	try {
-           User user = userService.getUser(email);
-           if (user.isConflict(event)) return new ResponseEntity<>(HttpStatus.CONFLICT);
-           else {
-        	   user.assignEvent(event);
-        	   return new ResponseEntity<>(HttpStatus.OK);
-           }
-    	} catch (NoSuchElementException e) {
-           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+    @PostMapping("")
+    public void register(@RequestBody User user) {
+        userService.saveUser(user);
     }
     
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> json) {
+    public ResponseEntity<User> login(@RequestBody Map<String, String> json) {
     	String email = json.get("email");
     	String password = json.get("password");
     	
     	try {
             User user = userService.getUser(email);
-            if (user.getPassword().equals(password)) return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            if (user.getPassword().equals(password))
+            	return new ResponseEntity<User>(user, HttpStatus.ACCEPTED);
             else return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     
-    @PostMapping("/")
-    public void add(@RequestBody User user) {
-        userService.saveUser(user);
-    }
-    @PutMapping("/{email}")
-    public ResponseEntity<?> update(@RequestBody User user, @PathVariable String email) {
-    	if(userService.userExists(email)) {
-    	   	user.setEmail(email);            
-       		userService.saveUser(user);
-       		return new ResponseEntity<>(HttpStatus.OK);
+    // TODO - conflict check is not working properly
+    @PostMapping("/events")
+    public ResponseEntity<?> assignEvent(@RequestBody Map<String, Object> json) {
+    	String email = (String)json.get("email");
+    	Map<String, Object> eventComponents = (Map<String, Object>)json.get("event");
+    	Event event;
+    	try {
+    		Integer eventId = (Integer)eventComponents.get("id");
+    		if (eventId == null) throw new NoSuchElementException();
+    		event = eventService.getEvent(eventId);
+    	} catch (NoSuchElementException e) {
+    		event = new Event(0,
+        			(String)eventComponents.get("name"), 
+        			(String)eventComponents.get("startDate"), 
+        			(String)eventComponents.get("endDate"));
+    		
+    		if (!event.valid()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	}
-    	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	
+    	try {
+    		User user = userService.getUser(email);
+    		
+            if (user.hasConflict(event))
+            	return new ResponseEntity<>(HttpStatus.CONFLICT);
+            else {
+            	eventService.saveEvent(event);
+        	   
+            	user.assignEvent(event);
+            	userService.saveUser(user);
+        	   
+            	return new ResponseEntity<>(HttpStatus.OK);
+           }
+    	} catch (NoSuchElementException e) {
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
     }
-    @DeleteMapping("/{email}")
-    public void delete(@PathVariable String email) {
-
+    
+    @DeleteMapping("")
+    public void delete(@RequestBody String email) {
         userService.deleteUser(email);
+    }
+    
+    @DeleteMapping("/events")
+    public ResponseEntity<?> removeEvent(@RequestBody Map<String, Object> json) {
+    	String email = (String)json.get("email");
+    	Integer eventId = (Integer)json.get("eventId");
+    	Event event = eventService.getEvent(eventId);
+    	
+    	try {
+    		User user = userService.getUser(email);
+    		user.removeEvent(event);
+    		userService.saveUser(user);
+    		return new ResponseEntity<>(HttpStatus.OK);
+    	} catch (NoSuchElementException e) {
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
     }
 }
