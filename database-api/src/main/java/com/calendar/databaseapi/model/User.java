@@ -9,9 +9,6 @@ import javax.persistence.Table;
 */
 import javax.persistence.*;
 
-import org.springframework.http.ResponseEntity;
-
-import java.util.Iterator;
 import java.util.HashSet;
 
 @Entity //save to a table
@@ -37,7 +34,6 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        assignedEvents = new HashSet<>();
     }
     
     public boolean isConflict(Event newEvent) {
