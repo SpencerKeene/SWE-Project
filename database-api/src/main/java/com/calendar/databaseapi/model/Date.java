@@ -87,17 +87,9 @@ public class Date {
 	}
 	
 	public int compareTo(Date x) {
-		if(x.year == year && x.month == month &&
-		   x.day == day && x.hour == hour && x.minute == minute) {
-			return 0;
-		}
-		
-		else if(year >= x.year && month >= x.month && 
-				day >= x.day && hour >= x.hour && minute >= minute) { // >= allows the two times to have the same parameter
-			return 1;												  // since it checks for == first this cannot be equal
-		}
-		
-		else return -1;
+		if(isBefore(x)) return -1;
+		else if(isAfter(x)) return 1;
+		else return 0;
 	}
 	
 }

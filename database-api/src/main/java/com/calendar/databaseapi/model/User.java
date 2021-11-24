@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -56,9 +58,20 @@ public class User {
     	for(int i = 0; i < assignedEvents.size(); i++) {
     		sortArray[i] = itr.next();
     	}
+    	
+    	//array sort method
+    	Arrays.sort(sortArray, new Comparator<Event>(){
+    		@Override
+    		public int compare(Event first, Event second) {
+    			if(first.getStartDate().isAfter(second.getStartDate())) return 1;
+    			else if(first.getStartDate().isBefore(second.getStartDate())) return -1;
+    			else return 0;
+    		}
+    	});
+    	/*bubble sort method
     	Event temp;
     	boolean sorted = false;
-    	while(!sorted) { //bubble sort :)
+    	while(!sorted) {
     		sorted = true;
     		for(int i = 0; i < sortArray.length; i++) {
     			if(sortArray[i].getStartDate().isAfter(sortArray[i+1].getStartDate())) {
@@ -68,11 +81,12 @@ public class User {
     				sorted = false;
     			}
     		}
-    	}
+    	}*/
     	ArrayList<String> freeTime = new ArrayList<String>();
     	freeTime.add("00:00 - " + sortArray[0].getStartDate().hour + ":" + sortArray[0].getStartDate().minute);
     	for(int i = 1; i < sortArray.length; i++) {
-    		freeTime.add(sortArray[i-1].getEndDate().hour + ":" + sortArray[i-1].getEndDate().minute + " - " + sortArray[i].getStartDate().hour + ":" + sortArray[i].getStartDate().minute);
+    		freeTime.add(sortArray[i-1].getEndDate().hour + ":" + sortArray[i-1].getEndDate().minute + " - " +
+    		sortArray[i].getStartDate().hour + ":" + sortArray[i].getStartDate().minute);
     	}
     	freeTime.add(sortArray[sortArray.length-1].getEndDate().hour + ":" + sortArray[sortArray.length-1].getEndDate().minute + " - " + "24:00");
     	return freeTime;
