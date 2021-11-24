@@ -11,13 +11,17 @@ import javax.persistence.Table;
 */
 import javax.persistence.*;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 @Entity //save to a table
 @Table(name = "events") // name of the table
 public class Event {
 	
     private int id;
     private String eventName;
-    private Date date;
+    private Date startDate;
+    private Date endDate;
     
     @ManyToMany(mappedBy = "assignedEvents")
     private Set<User> users;
@@ -25,12 +29,33 @@ public class Event {
     public Event() {
     }
 
-    public Event(int id, String eventName, int year, int month, int day, int hour, int minute) {
-        this.id = id;
+    //TODO make start and end time strings
+    public Event(String eventName, int year, int month, int day, int hour, int minute,
+    							   int endYear,  int endMonth, int endDay, int endHour, int endMinute) { //end date
+    	//TODO need to generate id
         this.eventName = eventName;
-        this.date = new Date(year, month, day, hour, minute);
-        
+        this.startDate = new Date(year, month, day, hour, minute);
+        this.endDate = new Date(endYear, endMonth, endDay, endHour, endMinute);
     }
+    
+    public ResponseEntity<Event> isValid(){
+		if(startDate.isValid() && endDate.isValid()) {
+    		return new ResponseEntity<Event>(HttpStatus.OK);
+    	}
+		else return new ResponseEntity<Event>(HttpStatus.NOT_ACCEPTABLE);
+	}
+    
+    //TODO
+    public boolean isConflict(Event event) {
+    	Date date2 = event.getStartDate();
+    	Date endDate2 = event.getEndDate();
+    	
+    	if(endDate.isBefore(date2)) return false;
+    	else if(startDate.isAfter(date2)) return false;
+    	
+    }
+    
+    //getters and setters
     public String getEventName() {
 		return eventName;
 	}
@@ -39,18 +64,28 @@ public class Event {
 		this.eventName = eventName;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setStartDate(Date date) {
+		this.startDate = date;
 	}
 
+	public Date getEndDate() {
+		return endDate;
+	}
+	
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {

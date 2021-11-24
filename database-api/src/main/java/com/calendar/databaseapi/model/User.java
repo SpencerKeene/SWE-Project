@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 */
 import javax.persistence.*;
+
+import org.springframework.http.ResponseEntity;
+
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity //save to a table
@@ -34,7 +38,19 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
+    
+    
+    //TODO
+    public ResponseEntity<User> isConflict() {
+    	Iterator<Event> itr = assignedEvents.iterator();
+    	for(int i = 0; i < assignedEvents.size(); i++) {
+	    	for(Event event : assignedEvents) {
+	    	
+	    		
+	    	}
+    	}
+    }
+    
 //other setters and getters
 	public String getFirstName() {
 		return firstName;

@@ -20,16 +20,18 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User getUser(Integer id) {
+    public User getUser(String id) {
         return userRepository.findById(id).get();
     }
 
-    public void deleteUser(Integer id) {
+    public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
     
-    public boolean userExists(Integer id) {
+    public boolean userExists(String id) {
     	return userRepository.existsById(id);
     }
+    
+    
     
 }

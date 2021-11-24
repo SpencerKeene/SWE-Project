@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> get(@PathVariable Integer id) {
+    public ResponseEntity<User> get(@PathVariable String id) {
         try {
             User user = userService.getUser(id);
             return new ResponseEntity<User>(user, HttpStatus.OK);
@@ -35,16 +35,16 @@ public class UserController {
         userService.saveUser(user);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody User user, @PathVariable Integer id) {
+    public ResponseEntity<?> update(@RequestBody User user, @PathVariable String id) {
     	if(userService.userExists(id)) {
-    	   	user.setId(id);            
+    	   	user.setEmail(id);            
        		userService.saveUser(user);
        		return new ResponseEntity<>(HttpStatus.OK);
     	}
     	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable String id) {
 
         userService.deleteUser(id);
     }
