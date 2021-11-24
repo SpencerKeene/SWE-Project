@@ -44,6 +44,10 @@ public class User {
 		return false;
     }
     
+    public void assignEvent(Event event) {
+    	assignedEvents.add(event);
+    }
+    
 //other setters and getters
     public ArrayList<Event> getEvents() {
     	ArrayList<Event> events = new ArrayList<Event>();

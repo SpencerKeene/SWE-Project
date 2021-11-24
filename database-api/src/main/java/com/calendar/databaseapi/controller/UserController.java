@@ -44,6 +44,22 @@ public class UserController {
     	
     }
     
+    @PostMapping("/{email}/assign-event")
+    public ResponseEntity<?> assignEvent(@PathVariable String email, @RequestBody Event event) {
+    	if (!event.isValid()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	
+    	try {
+           User user = userService.getUser(email);
+           if (user.isConflict(event)) return new ResponseEntity<>(HttpStatus.CONFLICT);
+           else {
+        	   user.assignEvent(event);
+        	   return new ResponseEntity<>(HttpStatus.OK);
+           }
+    	} catch (NoSuchElementException e) {
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    }
+    
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> json) {
     	String email = json.get("email");
