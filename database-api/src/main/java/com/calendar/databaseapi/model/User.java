@@ -23,8 +23,8 @@ public class User {
     @ManyToMany
     @JoinTable(
     	name = "event-user",
-    	joinColumns = @JoinColumn(name = "user_id"),
-    	inverseJoinColumns = @JoinColumn(name = "event_id"))
+    	joinColumns = @JoinColumn(name = "email"),
+    	inverseJoinColumns = @JoinColumn(name = "eventID"))
     HashSet<Event> assignedEvents;
     
    public User() {
