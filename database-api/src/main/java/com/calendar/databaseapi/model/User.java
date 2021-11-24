@@ -40,16 +40,11 @@ public class User {
         assignedEvents = new HashSet<>();
     }
     
-    
-    //TODO
-    public ResponseEntity<User> isConflict() {
-    	Iterator<Event> itr = assignedEvents.iterator();
-    	for(int i = 0; i < assignedEvents.size(); i++) {
-	    	for(Event event : assignedEvents) {
-	    	
-	    		
-	    	}
-    	}
+    public boolean isConflict(Event newEvent) {
+		for(Event event : assignedEvents) {
+			if(event.isConflict(newEvent)) return true;
+		}
+		return false;
     }
     
 //other setters and getters
