@@ -45,14 +45,13 @@ public class Event {
 		else return new ResponseEntity<Event>(HttpStatus.NOT_ACCEPTABLE);
 	}
     
-    //TODO
     public boolean isConflict(Event event) {
-    	Date date2 = event.getStartDate();
+    	Date startDate2 = event.getStartDate();
     	Date endDate2 = event.getEndDate();
     	
-    	if(endDate.isBefore(date2)) return false;
-    	else if(startDate.isAfter(date2)) return false;
-    	
+    	if(endDate.isBefore(startDate2)) return false;
+    	else if(startDate.isAfter(endDate2)) return false;
+    	else return true;
     }
     
     //getters and setters
