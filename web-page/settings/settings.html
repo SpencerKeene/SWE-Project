@@ -20,6 +20,9 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+    <script async src="./emailUpdate.js"></script>
+    <script async src="./passwordUpdate.js"></script>
+    <link href="settings.css" rel="stylesheet" />
     <link rel="stylesheet" href="\web-page\styles.css" />
   </head>
   <body>
@@ -55,7 +58,40 @@
       </ul>
     </header>
     <main>
-        
+      <div class="container col-md-10 col-sm-9">
+        <div class="container col-md-4 col-sm-7" style="margin-top: 50px;">
+          <label for="changedEmail" class="sr-only">Change Email address</label>
+          <input
+                   type="email"
+                   id="changedEmail"
+                   class="form-control"
+                   placeholder="Email address"
+                 />
+                 
+       </div>
+       <div class="container col-md-1 col-sm-1 col-lg-4">
+         <button class="buttonStyle" id="emailBtn" type="submit"">
+              <h4 class="buttonText">update</h4>
+          </button>
+       </div>
+       <form >
+       <div class="container col-md-4 col-sm-7" style="margin-top: 50px;">
+        <label for="changedPassword" class="sr-only">Change Password</label>
+        <input
+                 type="password"
+                 id="changedPassword"
+                 class="form-control"
+                 placeholder="Password"
+               />
+               
+     </div>
+     <div class="container col-md-1 col-sm-1 col-lg-4">
+       <button class="buttonStyle" id="passwordBtn" type="submit">
+            <h4 class="buttonText">update</h4>
+        </button>
+     </div>
+    </form>
+    </div>
     </main>
     </div>
   </body>
