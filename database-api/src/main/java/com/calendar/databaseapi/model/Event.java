@@ -1,6 +1,6 @@
 package com.calendar.databaseapi.model;
 
-import java.util.Set;
+import java.util.HashSet;
 
 /*
 import javax.persistence.Entity;
@@ -10,9 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 */
 import javax.persistence.*;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 @Entity //save to a table
 @Table(name = "events") // name of the table
@@ -24,25 +21,20 @@ public class Event {
     private Date endDate;
     
     @ManyToMany(mappedBy = "assignedEvents")
-    private Set<User> users;
+    private HashSet<User> users;
     
     public Event() {
     }
 
-    //TODO make start and end time strings
-    public Event(String eventName, int year, int month, int day, int hour, int minute,
-    							   int endYear,  int endMonth, int endDay, int endHour, int endMinute) { //end date
-    	//TODO need to generate id
+    public Event(int id, String eventName, int day, int month, int year, int startHour, int startMinute, int endHour, int endMinute) { //end date
+    	this.id = id;
         this.eventName = eventName;
-        this.startDate = new Date(year, month, day, hour, minute);
-        this.endDate = new Date(endYear, endMonth, endDay, endHour, endMinute);
+        this.startDate = new Date(year, month, day, startHour, startMinute);
+        this.endDate = new Date(year, month, day, endHour, endMinute);
     }
     
-    public ResponseEntity<Event> isValid(){
-		if(startDate.isValid() && endDate.isValid()) {
-    		return new ResponseEntity<Event>(HttpStatus.OK);
-    	}
-		else return new ResponseEntity<Event>(HttpStatus.NOT_ACCEPTABLE);
+    public boolean isValid() {
+		return startDate.isValid() && endDate.isValid();
 	}
     
     public boolean isConflict(Event event) {
