@@ -1,8 +1,23 @@
-.buttonStyle{
-    width: 300px;
-    height: 70px;
-    border-radius: 9px;
-    margin-top: 50px;
-    background-color: green;
-    border: none;
-  }
+#page-header {
+  padding-top: 10px;
+  background-color: red;
+}
+
+.nav-link {
+  color: white;
+  font-size: large;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: black;
+}
+
+.buttonStyle {
+  width: 300px;
+  height: 70px;
+  border-radius: 9px;
+  margin-top: 50px;
+  background-color: green;
+  border: none;
+}
