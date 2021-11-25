@@ -2,3 +2,11 @@
     margin-top: 40px; 
     margin-left: 10%;
 }
+.box{
+    padding: 20px;
+    margin: 10px;
+    background-color: #CEBCB8;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+}
