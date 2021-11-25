@@ -1,12 +1,27 @@
-.jsEvents{
-    margin-top: 40px; 
-    margin-left: 10%;
+#page-header {
+  padding-top: 10px;
+  background-color: red;
 }
-.box{
-    padding: 20px;
-    margin: 10px;
-    background-color: #CEBCB8;
-    border-radius: 10px;
-    position: relative;
-    text-align: center;
+
+.nav-link {
+  color: white;
+  font-size: large;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: black;
+}
+
+.jsEvents {
+  margin-top: 40px;
+  margin-left: 10%;
+}
+.box {
+  padding: 20px;
+  margin: 10px;
+  background-color: #cebcb8;
+  border-radius: 10px;
+  position: relative;
+  text-align: center;
 }
