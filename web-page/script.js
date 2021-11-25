@@ -1,5 +1,5 @@
 // get local storage
-const user = window.localStorage.getItem("user");
+const user = JSON.parse(window.localStorage.getItem("user"));
 
 // define variables
 const todaysDate = new Date();
@@ -146,9 +146,15 @@ function monthRight() {
   loadCalendar();
 }
 
+function signOut() {
+  window.localStorage.removeItem("user");
+  window.location.href = "./loginSignup/signInOut.html";
+}
+
 // add methods to DOM elements
 document.getElementById("calendar-title-left-btn").onclick = monthLeft;
 document.getElementById("calendar-title-right-btn").onclick = monthRight;
+document.getElementById("sign-out-btn").onclick = signOut;
 
 // load calendar on page load
 loadCalendar();

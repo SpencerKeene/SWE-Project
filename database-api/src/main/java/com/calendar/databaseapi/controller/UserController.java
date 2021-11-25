@@ -40,8 +40,16 @@ public class UserController {
     }
     
     @PostMapping("")
-    public void register(@RequestBody User user) {
+    public ResponseEntity<User> register(@RequestBody User user) {
+    	if (userService.userExists(user.getEmail())) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    	
         userService.saveUser(user);
+        try {
+        	User userAccount = userService.getUser(user.getEmail());
+        	return new ResponseEntity<User>(userAccount, HttpStatus.CREATED);
+        } catch (NoSuchElementException e) {
+        	return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
+        }
     }
     
     @PostMapping("/login")
@@ -61,7 +69,7 @@ public class UserController {
     
     // TODO - conflict check is not working properly
 	@PostMapping("/events")
-    public ResponseEntity<?> assignEvent(@RequestBody Map<String, Object> json) {
+    public ResponseEntity<Event> assignEvent(@RequestBody Map<String, Object> json) {
     	String email = (String)json.get("email");
     	@SuppressWarnings("unchecked")
 		Map<String, Object> eventComponents = (Map<String, Object>)json.get("event");
@@ -90,7 +98,7 @@ public class UserController {
             	user.assignEvent(event);
             	userService.saveUser(user);
         	   
-            	return new ResponseEntity<>(HttpStatus.OK);
+            	return new ResponseEntity<Event>(event, HttpStatus.CREATED);
            }
     	} catch (NoSuchElementException e) {
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);

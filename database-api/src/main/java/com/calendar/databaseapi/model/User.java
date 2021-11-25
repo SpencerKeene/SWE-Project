@@ -122,7 +122,6 @@ public class User {
 		this.password = password;
 	}
 	
-	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}

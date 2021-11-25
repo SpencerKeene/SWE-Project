@@ -29,6 +29,5 @@ loginForm.addEventListener("submit", (e) => {
       document.getElementById("loginError").hidden = false;
       return;
     }
-
   })();
 });
