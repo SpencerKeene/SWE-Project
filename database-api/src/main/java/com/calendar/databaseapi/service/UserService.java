@@ -1,12 +1,14 @@
 package com.calendar.databaseapi.service;
 
-import com.calendar.databaseapi.model.User;
-import com.calendar.databaseapi.repository.UserRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.calendar.databaseapi.model.User;
+import com.calendar.databaseapi.repository.UserRepository;
+
 @Service
 @Transactional
 public class UserService {
@@ -20,16 +22,15 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User getUser(Integer id) {
-        return userRepository.findById(id).get();
+    public User getUser(String email) {
+        return userRepository.findById(email).get();
     }
 
-    public void deleteUser(Integer id) {
-        userRepository.deleteById(id);
+    public void deleteUser(String email) {
+        userRepository.deleteById(email);
     }
     
-    public boolean userExists(Integer id) {
-    	return userRepository.existsById(id);
+    public boolean userExists(String email) {
+    	return userRepository.existsById(email);
     }
-    
 }

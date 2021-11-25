@@ -34,3 +34,4 @@ build/
 .vscode/*
 !.vscode/settings.json
 
+database-api/src/main/resources/application.properties
