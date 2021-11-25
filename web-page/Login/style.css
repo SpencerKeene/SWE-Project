@@ -3,26 +3,27 @@ body {
   padding-bottom: 40px;
   background-color: #eee;
 }
-.backgroundImage{
+.backgroundImage {
   background-size: cover;
   height: 710px;
   background-image: url("/web-page/images/Calendar-background-image.png");
 }
-.buttonStyle{
+.buttonStyle {
   width: 200px;
   height: 70px;
   border-radius: 15px;
-  margin: 10px;;
+  margin: 10px;
   background-color: red;
   border: none;
 }
+
 .buttonStyle:hover{
  box-shadow: 10px 10px 5px rgba(green, 32, 00, 0.5);
 }
-.buttonText{
+.buttonText {
   color: white;
 }
-.form-login-heading{
+.form-login-heading {
   margin-top: 40px;
   color: white;
 }
@@ -31,7 +32,7 @@ body {
   padding: 15px;
   margin: 0 auto;
 }
-.font-color{
+.font-color {
   color: white;
 }
 .form-signin .form-signin-heading,
@@ -58,18 +59,25 @@ body {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-signin input[type="password"] {/*these two are for the input box*/
+.form-signin input[type="password"] {
+  /*these two are for the input box*/
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-input[type="password"]{/*these three should centre
+input[type="password"] {
+  /*these three should centre
                        as well as 30%for full screen width*/
   width: 70%;
 }
-input[type="email"]{
+input[type="email"] {
   width: 70%;
 }
-input[type="text"]{
-width: 70%;
+input[type="text"] {
+  width: 70%;
+}
+
+.errorMessage {
+  color: red;
+  font-weight: 600;
 }
