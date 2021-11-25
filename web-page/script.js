@@ -1,6 +1,8 @@
 // get local storage
 const user = JSON.parse(window.localStorage.getItem("user"));
 
+let deleteEventId = undefined;
+
 // define variables
 const todaysDate = new Date();
 const calendarGrid = document.getElementById("calendar-grid");
@@ -64,8 +66,13 @@ function displayDayEvents(event) {
         endMinute < 10 ? "0" + endMinute : endMinute
       }${endAm ? "am" : "pm"}`;
 
-      const eventElement = document.createElement("div");
+      const eventElement = document.createElement("button");
       eventElement.classList.add("event", "day-event");
+      eventElement.setAttribute("data-bs-toggle", "modal");
+      eventElement.setAttribute("data-bs-target", "#delete-event-modal");
+      eventElement.onclick = (e) => {
+        deleteEventId = event.id;
+      };
       const top = (startDate.getHours() + startMinute / 60) * 120;
       eventElement.style.setProperty("top", `${top}px`);
       const height =
@@ -252,6 +259,31 @@ function monthRight() {
 function signOut() {
   window.localStorage.removeItem("user");
   window.location.href = "./loginSignup/signInOut.html";
+}
+
+function deleteEvent(e) {
+  (async () => {
+    try {
+      const response = await fetch("http://localhost:8080/users/events", {
+        method: "DELETE",
+        body: JSON.stringify({
+          email: user.email,
+          eventId: deleteEventId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const myJson = await response.json();
+      window.localStorage.setItem("user", JSON.stringify(myJson));
+      user = myJson;
+      setupCalendar();
+    } catch (err) {
+      alert("error");
+      console.error(err);
+      return;
+    }
+  })();
 }
 
 // add methods to DOM elements
