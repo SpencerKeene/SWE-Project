@@ -1,5 +1,5 @@
 // get local storage
-const user = window.localStorage.getItem("user");
+const user = JSON.parse(window.localStorage.getItem("user"));
 
 // define variables
 const todaysDate = new Date();
