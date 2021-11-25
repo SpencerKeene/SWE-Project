@@ -35,6 +35,8 @@ eventForm.addEventListener("submit", (e) => {
       });
       const myJson = await response.json();
       user.assignedEvents.push(myJson);
+      localStorage.setItem("user", JSON.stringify(user));
+      alert(`Event created\n${myJson.name}`);
     } catch (err) {
       console.error(err);
       document.getElementById("createEventError").hidden = false;
