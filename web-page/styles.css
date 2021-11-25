@@ -82,12 +82,12 @@
   position: absolute;
   background-color: red;
   color: white;
-  height: 67.5px;
+  height: 67.5px; /*calculate this based on duration of time (endtime - starttime)*/
   width: calc(100% - 80px);
   margin-left: 50px;
   margin-top: 16px;
   border-radius: 10px;
-  top: 742.5px;
+  top: 742.5px; /*calculate height based on start time*/
 }
 
 .day-event-time {
