@@ -141,13 +141,15 @@ public class UserController {
     public ResponseEntity<?> removeEvent(@RequestBody Map<String, Object> json) {
     	String email = (String)json.get("email");
     	Integer eventId = (Integer)json.get("eventId");
-    	Event event = eventService.getEvent(eventId);
     	
     	try {
     		User user = userService.getUser(email);
+    		Event event = eventService.getEvent(eventId);
+    		
     		user.removeEvent(event);
     		userService.saveUser(user);
-    		return new ResponseEntity<>(HttpStatus.OK);
+    		
+    		return new ResponseEntity<User>(user, HttpStatus.OK);
     	} catch (NoSuchElementException e) {
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}

@@ -1,5 +1,7 @@
 // get local storage
-const user = JSON.parse(window.localStorage.getItem("user"));
+let user = JSON.parse(window.localStorage.getItem("user"));
+
+let deleteEventId = undefined;
 
 // define variables
 const todaysDate = new Date();
@@ -41,7 +43,7 @@ function displayDayEvents(event) {
     if (child.classList.contains("day-event")) dayCalendar.removeChild(child);
   }
 
-  eventsList.forEach((event) => {
+  user.assignedEvents.forEach((event) => {
     var startDate = parseDate(event.startDate);
     var endDate = parseDate(event.endDate);
     if (
@@ -64,8 +66,16 @@ function displayDayEvents(event) {
         endMinute < 10 ? "0" + endMinute : endMinute
       }${endAm ? "am" : "pm"}`;
 
-      const eventElement = document.createElement("div");
+      const eventElement = document.createElement("button");
       eventElement.classList.add("event", "day-event");
+      eventElement.setAttribute("data-bs-toggle", "modal");
+      eventElement.setAttribute("data-bs-target", "#delete-event-modal");
+      eventElement.onclick = (e) => {
+        deleteEventId = event.id;
+        document.getElementById(
+          "delete-event-text"
+        ).innerText = `Are you sure you want to delete your event "${event.name}"`;
+      };
       const top = (startDate.getHours() + startMinute / 60) * 120;
       eventElement.style.setProperty("top", `${top}px`);
       const height =
@@ -73,7 +83,6 @@ function displayDayEvents(event) {
           startDate.getHours() +
           (endDate.getMinutes() - startDate.getMinutes()) / 60) *
         120;
-      console.log({ height });
       eventElement.style.setProperty("height", `${height}px`);
       eventElement.innerHTML = `
         <div class="day-event-time">${startTime}-${endTime}</div>
@@ -164,29 +173,6 @@ function setupCalendar() {
   }
 }
 //nicks start
-const events = {
-  id: 1,
-  name: "example name 1",
-  startDate: "2021 11 27 8:30",
-  endDate: "2021 11 27 10:30",
-};
-const events1 = {
-  id: 2,
-  name: "example name 2",
-  startDate: "2021 11 27 14:30",
-  endDate: "2021 11 27 16:00",
-};
-const events2 = {
-  id: 3,
-  name: "example name 3",
-  startDate: "2021 11 26 10:30",
-  endDate: "2021 11 26 11:00",
-};
-const eventsList = [];
-eventsList[events.id] = events;
-eventsList[events1.id] = events1;
-eventsList[events2.id] = events2;
-
 function eventComparator(event1, event2) {
   var date1 = parseDate(event1.startDate);
   var date2 = parseDate(event2.startDate);
@@ -200,8 +186,8 @@ function eventComparator(event1, event2) {
 }
 
 function displayEvents(eventListElement, day, month, year) {
-  eventsList.sort(eventComparator);
-  eventsList.forEach((event) => {
+  user.assignedEvents.sort(eventComparator);
+  user.assignedEvents.forEach((event) => {
     var eventDate = parseDate(event.startDate);
     if (
       eventDate.getDate() === day &&
@@ -254,10 +240,36 @@ function signOut() {
   window.location.href = "./loginSignup/signInOut.html";
 }
 
+function deleteEvent(e) {
+  (async () => {
+    try {
+      const response = await fetch("http://localhost:8080/users/events", {
+        method: "DELETE",
+        body: JSON.stringify({
+          email: user.email,
+          eventId: deleteEventId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const myJson = await response.json();
+      window.localStorage.setItem("user", JSON.stringify(myJson));
+      user = myJson;
+      setupCalendar();
+    } catch (err) {
+      alert("error");
+      console.error(err);
+      return;
+    }
+  })();
+}
+
 // add methods to DOM elements
 document.getElementById("calendar-title-left-btn").onclick = monthLeft;
 document.getElementById("calendar-title-right-btn").onclick = monthRight;
 document.getElementById("sign-out-btn").onclick = signOut;
+document.getElementById("confirm-delete-event").onclick = deleteEvent;
 
 // load calendar on page load
 setupCalendar();
