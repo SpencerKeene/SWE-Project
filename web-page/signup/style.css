@@ -1,13 +1,3 @@
-@media screen and (min-width: 601px) {
-  .buttonStyle {
-    width: 200px;
-    height: 70px;
-    border-radius: 15px;
-    margin: 10px;
-    background-color: blue;
-    border: none;
-  }
-}
 body {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -16,7 +6,7 @@ body {
 .backgroundImage {
   background-size: cover;
   height: 710px;
-  background-image: url("/web-page/images/Calendar-background-image.png");
+  background-image: url("../images/Calendar-background-image.png");
 }
 .buttonStyle {
   width: 200px;
@@ -26,8 +16,8 @@ body {
   background-color: red;
   border: none;
 }
+
 .buttonStyle:hover {
-  /*fix the hover effect and make it work*/
   box-shadow: 10px 10px 5px rgba(green, 32, 00, 0.5);
 }
 .buttonText {
@@ -85,4 +75,8 @@ input[type="email"] {
 }
 input[type="text"] {
   width: 70%;
+}
+.errorMessage {
+  color: red;
+  font-weight: 600;
 }

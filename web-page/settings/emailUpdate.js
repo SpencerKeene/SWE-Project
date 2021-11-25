@@ -1,15 +1,31 @@
 var newEmail;
 
-const update = document.getElementById('emailBtn');
+const updateEmailBtn = document.getElementById("emailBtn");
 
-update.addEventListener('click', (e) => {
-    newEmail = document.getElementById('changedEmail').value;
-    if(true){//email does not exist
-        //update to server
-        alert("Email has been updated");
+updateEmailBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  newEmail = document.getElementById("input-email").value;
+
+  (async () => {
+    try {
+      const response = await fetch("http://localhost:8080/users/change-email", {
+        method: "PUT",
+        body: JSON.stringify({
+          oldEmail: user.email,
+          newEmail: newEmail,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const myJson = await response.ok;
+      if (!myJson) throw ErrorEvent;
+      user.email = newEmail;
+      window.localStorage.setItem("user", JSON.stringify(user));
+      alert("Email changed");
+    } catch (err) {
+      alert("error");
+      return;
     }
-    else{
-        e.preventDefault();
-        alert("Email already exists");
-    }
-})
+  })();
+});

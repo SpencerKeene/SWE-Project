@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      if (localStorage.getItem("user") === null)
+        window.location.href = "../loginSignup/signInOut.html";
+    </script>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,21 +26,21 @@
     ></script>
     <script async src="./emailUpdate.js"></script>
     <script async src="./passwordUpdate.js"></script>
+    <script async src="./settings.js"></script>
     <link href="settings.css" rel="stylesheet" />
-    <link rel="stylesheet" href="\web-page\styles.css" />
   </head>
   <body>
     <header id="page-header">
       <!-- <h1 style="text-align: center">Welcome!</h1> -->
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link" onclick="window.location.href='/web-page/index.html';">Calendar</a>
+          <a class="nav-link" href="../">Calendar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Upcoming</a>
+          <a class="nav-link" href="../upcoming-events/upcomingEvents.html">Upcoming</a>
         </li>
         <li class="nav-item"> <!--add links in the future-->
-          <a class="nav-link" href="#">Create Event</a>
+          <a class="nav-link" href="../create-events/createEvents.html">Create Event</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -52,18 +56,18 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Settings</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" onclick="window.location.href='/web-page/Login/signInOut.html';">Sign out</a></li>
+            <li><a class="dropdown-item" id="sign-out-btn">Sign out</a></li>
           </ul>
         </li>
       </ul>
     </header>
     <main>
       <div class="container col-md-10 col-sm-9">
-        <div class="container col-md-4 col-sm-7" style="margin-top: 50px;">
+        <!-- <div class="container col-md-4 col-sm-7" style="margin-top: 50px;">
           <label for="changedEmail" class="sr-only">Change Email address</label>
           <input
                    type="email"
-                   id="changedEmail"
+                   id="input-email"
                    class="form-control"
                    placeholder="Email address"
                  />
@@ -73,13 +77,13 @@
          <button class="buttonStyle" id="emailBtn" type="submit"">
               <h4 class="buttonText">update</h4>
           </button>
-       </div>
+       </div> -->
        <form >
        <div class="container col-md-4 col-sm-7" style="margin-top: 50px;">
         <label for="changedPassword" class="sr-only">Change Password</label>
         <input
                  type="password"
-                 id="changedPassword"
+                 id="input-password"
                  class="form-control"
                  placeholder="Password"
                />
