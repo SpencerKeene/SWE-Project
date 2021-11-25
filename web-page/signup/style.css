@@ -5,7 +5,7 @@ body {
 }
 .backgroundImage {
   background-size: cover;
-  height: 710px;
+  height: 100vh;
   background-image: url("../images/Calendar-background-image.png");
 }
 .buttonStyle {
