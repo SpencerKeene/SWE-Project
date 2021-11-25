@@ -40,8 +40,15 @@ public class UserController {
     }
     
     @PostMapping("")
-    public void register(@RequestBody User user) {
+    public ResponseEntity<User> register(@RequestBody User user) {
         userService.saveUser(user);
+        try {
+        	User userAccount = userService.getUser(user.getEmail());
+        	return new ResponseEntity<User>(userAccount, HttpStatus.CREATED);
+        } catch (NoSuchElementException e) {
+        	return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
+        }
+        
     }
     
     @PostMapping("/login")
