@@ -29,6 +29,9 @@
       <div style="margin-left: 12%">
         <form class="form-login" id="loginForm">
           <h2 class="form-login-heading">Please login</h2>
+          <div class="errorMessage" id="loginError" hidden>
+            * Incorrect email/password
+          </div>
           <label for="inputEmail" class="sr-only font-color"
             >Email address</label
           >
@@ -48,11 +51,11 @@
             placeholder="Password"
             required
           />
-          <div class="checkbox">
+          <!-- <div class="checkbox">
             <label class="font-color">
               <input type="checkbox" value="remember-me" /> Remember me
             </label>
-          </div>
+          </div> -->
           <button class="buttonStyle" type="submit">
             <h4 class="buttonText">Login</h4>
           </button>
