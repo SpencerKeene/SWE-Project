@@ -41,6 +41,8 @@ public class UserController {
     
     @PostMapping("")
     public ResponseEntity<User> register(@RequestBody User user) {
+    	if (userService.userExists(user.getEmail())) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    	
         userService.saveUser(user);
         try {
         	User userAccount = userService.getUser(user.getEmail());
@@ -48,7 +50,6 @@ public class UserController {
         } catch (NoSuchElementException e) {
         	return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
         }
-        
     }
     
     @PostMapping("/login")
