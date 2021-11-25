@@ -97,6 +97,11 @@ public class UserController {
     	}
     }
     
+	@PutMapping("/change-password")
+	public void changePassword(@RequestBody User user) {
+		userService.saveUser(user);
+	}
+	
     @DeleteMapping("")
     public void delete(@RequestBody String email) {
         userService.deleteUser(email);
