@@ -1,0 +1,99 @@
+:root {
+  --calendar-lightGrey: rgb(240, 240, 240);
+}
+
+#page-header {
+  padding-top: 10px;
+  background-color: red;
+}
+
+.nav-link {
+  color: white;
+  font-size: large;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: black;
+}
+
+/* Fix Bootstrap bug where row-cols-* does not work above row-cols-6 */
+.row-cols-7 > * {
+  flex: 0 0 auto;
+  width: calc(100% / 7);
+}
+
+.calendar-container {
+  max-width: 100vw;
+}
+
+#calendar-header {
+  text-align: center;
+}
+
+.calendar-weekday {
+  text-align: center;
+}
+
+.calendar-cell {
+  display: inline-flex;
+  align-items: top;
+  text-align: left;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  background-color: var(--calendar-lightGrey);
+  min-height: calc(100vh / 7);
+}
+
+.calendar-cell:hover {
+  border-color: red;
+  border-width: 3px;
+}
+
+#calendar-title-middle-btn {
+  width: 360px;
+  background-color: var(--calendar-lightGrey);
+}
+
+#calendar-title-middle-btn:hover {
+  background-color: var(--bs-gray);
+}
+
+.calendar-cell.padding-cell {
+  background-color: rgb(200, 200, 200);
+}
+
+#today {
+  background-color: rgb(181, 227, 255);
+}
+
+.modal-timeslot {
+  border-top: 1px dashed black;
+  height: 90px;
+}
+
+.modal-timeslot.thick-border {
+  border-top-style: solid;
+  border-width: 2px;
+}
+
+.day-event {
+  position: absolute;
+  background-color: red;
+  color: white;
+  height: 67.5px;
+  width: calc(100% - 80px);
+  margin-left: 50px;
+  margin-top: 16px;
+  border-radius: 10px;
+  top: 742.5px;
+}
+
+.day-event-time {
+  padding-left: 5px;
+}
+
+.day-event-name {
+  padding-left: 15px;
+}
