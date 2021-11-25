@@ -1,11 +1,27 @@
-.buttonStyle{
-    width: 100px;
-    height: 40px;
-    border-radius: 5px;
-    margin: 10px;
-    background-color: green;
-    border: none;
-  }
-  .buttonStyle:hover{/*fix the hover effect and make it work*/
-   box-shadow: 10px 10px 5px rgba(green, 32, 00, 0.5);
-  }
+#page-header {
+  padding-top: 10px;
+  background-color: red;
+}
+
+.nav-link {
+  color: white;
+  font-size: large;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: black;
+}
+
+.buttonStyle {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  margin: 10px;
+  background-color: green;
+  border: none;
+}
+.buttonStyle:hover {
+  /*fix the hover effect and make it work*/
+  box-shadow: 10px 10px 5px rgba(green, 32, 00, 0.5);
+}
