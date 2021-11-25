@@ -6,7 +6,7 @@ body {
 .backgroundImage {
   background-size: cover;
   height: 710px;
-  background-image: url("/web-page/images/Calendar-background-image.png");
+  background-image: url("../images/Calendar-background-image.png");
 }
 .buttonStyle {
   width: 200px;
@@ -17,8 +17,8 @@ body {
   border: none;
 }
 
-.buttonStyle:hover{
- box-shadow: 10px 10px 5px rgba(green, 32, 00, 0.5);
+.buttonStyle:hover {
+  box-shadow: 10px 10px 5px rgba(green, 32, 00, 0.5);
 }
 .buttonText {
   color: white;
