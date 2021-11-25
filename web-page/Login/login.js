@@ -22,13 +22,13 @@ loginForm.addEventListener("submit", (e) => {
         },
       });
       const myJson = await response.json();
-      window.localStorage.setItem("user", myJson);
+      window.localStorage.setItem("user", JSON.stringify(myJson));
       window.location.href = "../";
     } catch (err) {
-      console.log("wrong password");
+      console.error(err);
       document.getElementById("loginError").hidden = false;
       return;
     }
-    console.log("myJson:", myJson);
+
   })();
 });
