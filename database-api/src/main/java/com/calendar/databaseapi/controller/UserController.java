@@ -101,6 +101,16 @@ public class UserController {
 		userService.saveUser(user);
 	}
 	
+	@PutMapping("/change-email")
+	public void changeEmail(@RequestBody Map<String, String> json) {
+		String newEmail = json.get("newEmail");
+		String oldEmail = json.get("oldEmail");
+		User user = userService.getUser(oldEmail);
+		user.setEmail(newEmail);
+		userService.deleteUser(oldEmail);
+		userService.saveUser(user);
+	}
+	
     @DeleteMapping("")
     public void delete(@RequestBody String email) {
         userService.deleteUser(email);
