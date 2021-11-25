@@ -70,7 +70,7 @@
 
 .modal-timeslot {
   border-top: 1px dashed black;
-  height: 90px;
+  height: 120px;
 }
 
 .modal-timeslot.thick-border {
@@ -78,22 +78,27 @@
   border-width: 2px;
 }
 
-.day-event {
-  position: absolute;
+.event {
+  width: 100%;
+  margin-left: 10px;
   background-color: red;
   color: white;
-  height: 67.5px; /*calculate this based on duration of time (endtime - starttime)*/
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: black 1px solid;
+  pointer-events: none;
+}
+
+.day-event {
+  position: absolute;
   width: calc(100% - 80px);
   margin-left: 50px;
   margin-top: 16px;
-  border-radius: 10px;
-  top: 742.5px; /*calculate height based on start time*/
-}
-
-.day-event-time {
-  padding-left: 5px;
+  /*calculate height based on duration of time (endtime - starttime)*/
+  /*calculate top based on start time*/
 }
 
 .day-event-name {
-  padding-left: 15px;
+  padding-left: 10px;
 }

@@ -23,10 +23,10 @@ let calendarMonth = todaysDate.getMonth();
 
 // define functions
 function displayDayEvents(event) {
-  const cell = event.target;
-  const day = cell.getAttribute("day");
-  const month = cell.getAttribute("month");
-  const year = cell.getAttribute("year");
+  const cell = event.currentTarget;
+  const day = parseInt(cell.getAttribute("day"));
+  const month = parseInt(cell.getAttribute("month"));
+  const year = parseInt(cell.getAttribute("year"));
   const isToday = cell.getAttribute("id") === "today";
 
   document.getElementById("calendar-day-modal-title").innerText = `${
@@ -34,6 +34,53 @@ function displayDayEvents(event) {
   } ${day}, ${year} ${isToday ? "(Today)" : ""}`;
 
   // TODO - load events for the day
+  const dayCalendar = document.getElementById("day-calendar");
+  const dayCalendarChildren = dayCalendar.children;
+  for (let i = 0; i < dayCalendarChildren.length; i++) {
+    const child = dayCalendarChildren[i];
+    if (child.classList.contains("day-event")) dayCalendar.removeChild(child);
+  }
+
+  eventsList.forEach((event) => {
+    var startDate = parseDate(event.startDate);
+    var endDate = parseDate(event.endDate);
+    if (
+      startDate.getDate() === day &&
+      startDate.getMonth() === month &&
+      startDate.getFullYear() === year
+    ) {
+      let startHour = startDate.getHours() % 12;
+      if (startHour === 0) startHour = 12;
+      let startMinute = startDate.getMinutes();
+      let startAm = startDate.getHours() < 12;
+
+      let endHour = endDate.getHours() % 12;
+      if (endHour === 0) endHour = 12;
+      let endMinute = endDate.getMinutes();
+      let endAm = endDate.getHours() < 12;
+
+      const startTime = `${startHour}:${startMinute}${startAm ? "am" : "pm"}`;
+      const endTime = `${endHour}:${
+        endMinute < 10 ? "0" + endMinute : endMinute
+      }${endAm ? "am" : "pm"}`;
+
+      const eventElement = document.createElement("div");
+      eventElement.classList.add("event", "day-event");
+      const top = (startDate.getHours() + startMinute / 60) * 120;
+      eventElement.style.setProperty("top", `${top}px`);
+      const height =
+        (endDate.getHours() -
+          startDate.getHours() +
+          (endDate.getMinutes() - startDate.getMinutes()) / 60) *
+        120;
+      console.log({ height });
+      eventElement.style.setProperty("height", `${height}px`);
+      eventElement.innerHTML = `
+        <div class="day-event-time">${startTime}-${endTime}</div>
+        <div class="day-event-name">${event.name}</div>`;
+      dayCalendar.appendChild(eventElement);
+    }
+  });
 }
 
 function setupCalendar() {
@@ -108,25 +155,30 @@ function setupCalendar() {
     cell.setAttribute("month", month);
     cell.setAttribute("year", year);
     cell.innerText = day;
-    cell.innerText += "\n" + displayEvents(day, month, year);
+    const eventsList = document.createElement("ul");
+    eventsList.style.setProperty("padding", 0);
+    cell.appendChild(eventsList);
+
+    // add events
+    displayEvents(eventsList, day, month, year);
   }
 }
 //nicks start
 const events = {
   id: 1,
-  name: "example name 1 27th",
-  startDate: "2021 11 27 12:30",
-  endDate: "2021 11 27 13:00",
+  name: "example name 1",
+  startDate: "2021 11 27 8:30",
+  endDate: "2021 11 27 10:30",
 };
 const events1 = {
   id: 2,
-  name: "example name 2 28th",
-  startDate: "2021 11 28 14:30",
-  endDate: "2021 11 28 16:00",
+  name: "example name 2",
+  startDate: "2021 11 27 14:30",
+  endDate: "2021 11 27 16:00",
 };
 const events2 = {
   id: 3,
-  name: "example name 3 26th",
+  name: "example name 3",
   startDate: "2021 11 26 10:30",
   endDate: "2021 11 26 11:00",
 };
@@ -135,65 +187,47 @@ eventsList[events.id] = events;
 eventsList[events1.id] = events1;
 eventsList[events2.id] = events2;
 
-function sortArray() {
-  eventsList.sort((event1, event2) => {
-    var date1 = parseDate(event1);
-    var date2 = parseDate(event2);
-    if (date1 > date2) {
-      return 1;
-    } else if (date1 < date2) {
-      return -1;
-    } else {
-      return 0;
-    }
-  });
+function eventComparator(event1, event2) {
+  var date1 = parseDate(event1.startDate);
+  var date2 = parseDate(event2.startDate);
+  if (date1 > date2) {
+    return 1;
+  } else if (date1 < date2) {
+    return -1;
+  } else {
+    return 0;
+  }
 }
 
-function displayEvents(day, month, year) {
-  sortArray();
-  var eventName = "";
+function displayEvents(eventListElement, day, month, year) {
+  eventsList.sort(eventComparator);
   eventsList.forEach((event) => {
-    var eventDate = parseDate(event);
+    var eventDate = parseDate(event.startDate);
     if (
       eventDate.getDate() === day &&
       eventDate.getMonth() === month &&
       eventDate.getFullYear() === year
     ) {
-      eventName += event.name + "\n";
+      const eventElement = document.createElement("div");
+      eventElement.classList.add("event");
+      eventElement.innerHTML = `<div class="event-name">${event.name}</div>`;
+      eventListElement.appendChild(eventElement);
     }
   });
-
-  return eventName;
 }
 
-function parseDate(event) {
-  var startDateComponents = event.startDate.split(" ");
-  var startYear = startDateComponents[0];
-  var startMonth = startDateComponents[1];
-  var startDay = startDateComponents[2];
-  var startDateTimeComponents = startDateComponents[3].split(":");
-  var startHour = startDateTimeComponents[0];
-  var startMinutes = startDateTimeComponents[1];
-  var meridiemStart;
-  var eventDate = new Date(
-    startYear,
-    startMonth - 1,
-    startDay,
-    startHour,
-    startMinutes
-  );
+function parseDate(eventDateString) {
+  var dateComponents = eventDateString.split(" ");
+  var year = dateComponents[0];
+  var month = dateComponents[1];
+  var day = dateComponents[2];
+  var dateTimeComponents = dateComponents[3].split(":");
+  var hour = dateTimeComponents[0];
+  var minute = dateTimeComponents[1];
+  var eventDate = new Date(year, month - 1, day, hour, minute);
   return eventDate;
 }
 //nicks end
-
-function loadEvents() {
-  // TODO - load events for the month
-}
-
-function loadCalendar() {
-  setupCalendar();
-  loadEvents();
-}
 
 function monthLeft() {
   if (calendarMonth === 0) {
@@ -202,7 +236,7 @@ function monthLeft() {
   } else {
     calendarMonth--;
   }
-  loadCalendar();
+  setupCalendar();
 }
 
 function monthRight() {
@@ -212,7 +246,7 @@ function monthRight() {
   } else {
     calendarMonth++;
   }
-  loadCalendar();
+  setupCalendar();
 }
 
 // add methods to DOM elements
@@ -220,4 +254,4 @@ document.getElementById("calendar-title-left-btn").onclick = monthLeft;
 document.getElementById("calendar-title-right-btn").onclick = monthRight;
 
 // load calendar on page load
-loadCalendar();
+setupCalendar();
