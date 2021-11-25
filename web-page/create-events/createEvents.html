@@ -59,7 +59,8 @@
     </header>
     <main>
       <div class="container" style="margin-top: 5%;">
-       <form>
+       <form id="eventForm">
+         <div class="errorMessage" id="createEventError" hidden>* Error creating event</div>
         <div class="col-md-5 col-sm-6">
           <label for="eventName"><h2>Event Name</h2></label>
           <input
@@ -71,11 +72,20 @@
           >
         </div>
         <div class="col-md-5 col-sm-6" style="margin-top: 40px;">
-          <label for="eventTime"><h2>Event Time</h2></label>
+          <label for="eventStartTime"><h2>Start Time</h2></label>
           <input
           type="time"
           class="form-control"
-          id="eventTime"
+          id="eventStartTime"
+          required
+          >
+        </div>
+        <div class="col-md-5 col-sm-6" style="margin-top: 40px;">
+          <label for="eventEndTime"><h2>End Time</h2></label>
+          <input
+          type="time"
+          class="form-control"
+          id="eventEndTime"
           required
           >
         </div>

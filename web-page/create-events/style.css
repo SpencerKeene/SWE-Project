@@ -21,3 +21,8 @@
   background-color: green;
   border: none;
 }
+
+.errorMessage {
+  color: red;
+  font-weight: 600;
+}
