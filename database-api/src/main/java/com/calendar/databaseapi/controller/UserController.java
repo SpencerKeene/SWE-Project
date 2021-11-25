@@ -111,13 +111,25 @@ public class UserController {
 	}
 	
 	@PutMapping("/change-email")
-	public void changeEmail(@RequestBody Map<String, String> json) {
+	public ResponseEntity<?> changeEmail(@RequestBody Map<String, String> json) {
 		String newEmail = json.get("newEmail");
 		String oldEmail = json.get("oldEmail");
-		User user = userService.getUser(oldEmail);
-		user.setEmail(newEmail);
-		userService.deleteUser(oldEmail);
-		userService.saveUser(user);
+
+		if (userService.userExists(newEmail)) return new ResponseEntity<>(HttpStatus.CONFLICT);
+		
+		try {
+			User user = userService.getUser(oldEmail);
+			User newUser = new User(user.getFirstName(), user.getLastName(), newEmail, user.getPassword());
+			newUser.setAssignedEvents(user.getAssignedEvents());
+			
+			userService.saveUser(newUser);
+			userService.deleteUser(oldEmail);
+			
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (NoSuchElementException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
 	}
 	
     @DeleteMapping("")
