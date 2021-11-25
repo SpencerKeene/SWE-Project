@@ -86,3 +86,7 @@ input[type="email"] {
 input[type="text"] {
   width: 70%;
 }
+.errorMessage {
+  color: red;
+  font-weight: 600;
+}
