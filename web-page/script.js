@@ -61,7 +61,9 @@ function displayDayEvents(event) {
       let endMinute = endDate.getMinutes();
       let endAm = endDate.getHours() < 12;
 
-      const startTime = `${startHour}:${startMinute}${startAm ? "am" : "pm"}`;
+      const startTime = `${startHour}:${
+        startMinute < 10 ? "0" + startMinute : startMinute
+      }${startAm ? "am" : "pm"}`;
       const endTime = `${endHour}:${
         endMinute < 10 ? "0" + endMinute : endMinute
       }${endAm ? "am" : "pm"}`;
