@@ -19,7 +19,7 @@ eventForm.addEventListener("submit", (e) => {
 
   (async () => {
     try {
-      const response = await fetch("http://localhost:8080/users/events", {
+      const response = await fetch("http://147.182.152.27:8080/users/events", {
         method: "POST",
         body: JSON.stringify({
           email: user.email,

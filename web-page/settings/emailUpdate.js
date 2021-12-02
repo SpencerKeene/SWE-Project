@@ -8,16 +8,19 @@ updateEmailBtn.addEventListener("click", (e) => {
 
   (async () => {
     try {
-      const response = await fetch("http://localhost:8080/users/change-email", {
-        method: "PUT",
-        body: JSON.stringify({
-          oldEmail: user.email,
-          newEmail: newEmail,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://147.182.152.27:8080/users/change-email",
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            oldEmail: user.email,
+            newEmail: newEmail,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const myJson = await response.ok;
       if (!myJson) throw ErrorEvent;
       user.email = newEmail;

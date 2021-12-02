@@ -11,7 +11,7 @@ updatePasswordBtn.addEventListener("click", (e) => {
   (async () => {
     try {
       const response = await fetch(
-        "http://localhost:8080/users/change-password",
+        "http://147.182.152.27:8080/users/change-password",
         {
           method: "PUT",
           body: JSON.stringify(user),
