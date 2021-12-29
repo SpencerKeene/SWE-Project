@@ -106,8 +106,18 @@ public class UserController {
     }
     
 	@PutMapping("/change-password")
-	public void changePassword(@RequestBody User user) {
-		userService.saveUser(user);
+	public ResponseEntity<?> changePassword(@RequestBody Map<String, String> json) {
+		String email = json.get("email");
+		String newPassword = json.get("newPassword");
+		
+		try {
+			User user = userService.getUser(email);
+			user.setPassword(newPassword);
+			userService.saveUser(user);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (NoSuchElementException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@PutMapping("/change-email")
