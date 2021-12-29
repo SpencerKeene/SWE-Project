@@ -3,7 +3,7 @@
   <head>
     <script>
       if (localStorage.getItem("user") === null)
-        window.location.href = "./loginSignup/signInOut.html";
+        window.location.href = "./loginSignup";
     </script>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -36,14 +36,10 @@
           <a class="nav-link active" aria-current="page">Calendar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./upcoming-events/upcomingEvents.html"
-            >Upcoming</a
-          >
+          <a class="nav-link" href="./upcoming-events">Upcoming</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./create-events/createEvents.html"
-            >Create Event</a
-          >
+          <a class="nav-link" href="./create-events">Create Event</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -57,9 +53,7 @@
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href="./settings/settings.html"
-                >Settings</a
-              >
+              <a class="dropdown-item" href="./settings">Settings</a>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" id="sign-out-btn">Sign out</a></li>

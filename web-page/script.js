@@ -239,7 +239,7 @@ function monthRight() {
 
 function signOut() {
   window.localStorage.removeItem("user");
-  window.location.href = "./loginSignup/signInOut.html";
+  window.location.href = "./loginSignup";
 }
 
 function deleteEvent(e) {
