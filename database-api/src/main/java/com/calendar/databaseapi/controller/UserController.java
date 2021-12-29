@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-@CrossOrigin(origins = "http://147.182.152.27:5500")
+@CrossOrigin(origins = {"http://147.182.152.27", "http://mystudentaccount.me"})
 @RestController
 @RequestMapping("/users")
 public class UserController {
