@@ -35,3 +35,6 @@ build/
 !.vscode/settings.json
 
 database-api/src/main/resources/application.properties
+
+### Deploy files ###
+nohup.out
