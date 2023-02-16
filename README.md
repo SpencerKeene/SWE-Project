@@ -36,20 +36,20 @@ Because of this, we recommend that you do not input any personal information whe
 
 ### Login
 
-<img alt="screenshot of login page" src="./assets/login.png" width="1000" style="border: 1px solid black">
+<kbd><img alt="screenshot of login page" src="./assets/login.png" width="1000"></kbd>
 
 ### Calendar view
 
-<img alt="screenshot of calendar view" src="./assets/calendar-view.png"  width="1000" style="border: 1px solid black">
+<kbd><img alt="screenshot of calendar view" src="./assets/calendar-view.png"  width="1000"></kbd>
 
 ### Day view
 
-<img alt="screenshot of day view" src="./assets/day-view.png"  width="1000" style="border: 1px solid black">
+<kbd><img alt="screenshot of day view" src="./assets/day-view.png"  width="1000"></kbd>
 
 ### Upcoming events
 
-<img alt="screenshot of upcoming events page" src="./assets/upcoming-events.png"  width="1000" style="border: 1px solid black">
+<kbd><img alt="screenshot of upcoming events page" src="./assets/upcoming-events.png"  width="1000"></kbd>
 
 ### Create events
 
-<img alt="screenshot of create event page" src="./assets/create-event.png"  width="1000" style="border: 1px solid black">
+<kbd><img alt="screenshot of create event page" src="./assets/create-event.png"  width="1000"></kbd>
